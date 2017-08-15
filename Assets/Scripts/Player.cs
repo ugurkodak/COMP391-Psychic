@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Powers))]
 public class Player : MonoBehaviour
 {
+    public Transform focusStateIndicator;
+    SpriteRenderer indicator;
     Moves moves;
     Powers powers;
     
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
 	focusLight = Instantiate(focusLight, new Vector3(10, 0, 0), Quaternion.identity);//Position X may cause problems at start
 	moves = GetComponent<Moves>();
 	powers = GetComponent<Powers>();
+        indicator = focusStateIndicator.GetComponent<SpriteRenderer>();
     }
 	
     void Update()
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour
 		    powers.forcePush();
 		    forceState = forceStates.delayed;
 		    //Debug.Log("Delayed");
+		    indicator.color = Color.magenta;
 		    forceCombination = "";
 		}
 		else if (forceCombination == teleportCombination)
@@ -72,55 +76,66 @@ public class Player : MonoBehaviour
 		    powers.teleport();
 		    forceState = forceStates.idle;
 		    //Debug.Log("Idle");
+		    indicator.color = new Color(0, 0, 0, 0);
 		    forceCombination = "";
 		}
 	    }
 	}
 
 	//Track force powers
-	if (Input.GetKeyDown(KeyCode.Q))
+	if (forceState != forceStates.delayed)
 	{
-	    focusCounter = 0;
-	    forceState = forceStates.ongoing;
-	    forceCombination += "q";
-	    //Debug.Log("Ongoing: " + forceCombination);
-	}
-	else if (Input.GetKeyDown(KeyCode.W))
-	{
-	    focusCounter = 0;
-	    forceState = forceStates.ongoing;
-	    forceCombination += "w";
-	    //Debug.Log("Ongoing: " + forceCombination);
-	}
-	else if (Input.GetKeyDown(KeyCode.E))
-	{
-	    focusCounter = 0;
-	    forceState = forceStates.ongoing;
-	    forceCombination += "e";
-	    //Debug.Log("Ongoing: " + forceCombination);
-	    if (forceCombination == pushCombination)
+	    if (Input.GetKeyDown(KeyCode.Q))
 	    {
-		forceState = forceStates.ready;
-		//Debug.Log("Push Ready");
+		focusCounter = 0;
+		forceState = forceStates.ongoing;
+		forceCombination += "q";
+		//Debug.Log("Ongoing: " + forceCombination);
+		indicator.color = Color.yellow;
 	    }
-	}
-	else if (Input.GetKeyDown(KeyCode.A))
-	{
-	    focusCounter = 0;
-	    forceState = forceStates.ongoing;
-	    forceCombination += "a";
-	    //Debug.Log("Ongoing: " + forceCombination);
-	}
-	else if (Input.GetKeyDown(KeyCode.S))
-	{
-	    focusCounter = 0;
-	    forceState = forceStates.ongoing;
-	    forceCombination += "s";
-	    //Debug.Log("Ongoing: " + forceCombination);
-	    if (forceCombination == teleportCombination)
+	    else if (Input.GetKeyDown(KeyCode.W))
 	    {
-		forceState = forceStates.ready;
-		//Debug.Log("Teleport Ready");
+		focusCounter = 0;
+		forceState = forceStates.ongoing;
+		forceCombination += "w";
+		//Debug.Log("Ongoing: " + forceCombination);
+		indicator.color = Color.yellow;
+	    }
+	    else if (Input.GetKeyDown(KeyCode.E))
+	    {
+		focusCounter = 0;
+		forceState = forceStates.ongoing;
+		forceCombination += "e";
+		//Debug.Log("Ongoing: " + forceCombination);
+		indicator.color = Color.yellow;
+		if (forceCombination == pushCombination)
+		{
+		    forceState = forceStates.ready;
+		    //Debug.Log("Push Ready");
+		    indicator.color = Color.blue;
+		}
+	    }
+	    else if (Input.GetKeyDown(KeyCode.A))
+	    {
+		focusCounter = 0;
+		forceState = forceStates.ongoing;
+		forceCombination += "a";
+		//Debug.Log("Ongoing: " + forceCombination);
+		indicator.color = Color.yellow;
+	    }
+	    else if (Input.GetKeyDown(KeyCode.S))
+	    {
+		focusCounter = 0;
+		forceState = forceStates.ongoing;
+		forceCombination += "s";
+		//Debug.Log("Ongoing: " + forceCombination);
+		indicator.color = Color.yellow;
+		if (forceCombination == teleportCombination)
+		{
+		    forceState = forceStates.ready;
+		    //Debug.Log("Teleport Ready");
+		    indicator.color = Color.blue;
+		}
 	    }
 	}
     }
@@ -137,6 +152,7 @@ public class Player : MonoBehaviour
 		focusCounter = 0;
 		forceCombination = "";
 		//Debug.Log("Failed");
+		indicator.color = Color.red;
 	    }
 	}
 	if (forceState == forceStates.failed)
@@ -147,6 +163,7 @@ public class Player : MonoBehaviour
 		focusCounter = 0;
 		forceState = forceStates.idle;
 		//Debug.Log("Idle");
+		indicator.color = new Color(0, 0, 0, 0);
 	    }
 	}
 	if (forceState == forceStates.delayed)
@@ -157,6 +174,7 @@ public class Player : MonoBehaviour
 		focusCounter = 0;
 		forceState = forceStates.idle;
 		//Debug.Log("Idle");
+		indicator.color = new Color(0, 0, 0, 0);
 	    }
 	}
     }

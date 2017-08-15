@@ -28,7 +28,7 @@ public class Moves : MonoBehaviour
     {
 	if (rBody.velocity.y < -26.0f)
 	    fallingTooFast = true;
-	if (rBody.velocity.x > 20)
+	if (Mathf.Abs(rBody.velocity.x) > 15)
 	{
 	    dead = true;
 	    animator.SetBool("dead", true);
