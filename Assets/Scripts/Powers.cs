@@ -38,6 +38,24 @@ public class Powers : MonoBehaviour
 	Debug.Log("Force Push");
 	animator.SetBool("pushing", true);
 	animationCounter++;
+	
+	RaycastHit2D[] hits;
+	//print("Focus Point: " + focusPoint);
+	//print("Player " + transform.position);
+	hits = Physics2D.LinecastAll(transform.position, focusPoint);
+	Debug.DrawLine(transform.position, focusPoint, Color.green, 2, false);
+	for (int i = 0; i < hits.Length; i++)
+	{
+	    if (hits[i].transform.CompareTag("Box") || hits[i].transform.CompareTag("Enemy"))
+	    {
+		Vector2 pushVector = new Vector2(0, 0);
+		pushVector = (focusPoint - (Vector2)transform.position).normalized;
+		hits[i].collider.GetComponent<Rigidbody2D>().AddForce(pushVector *
+								      10000 / (hits[i].transform.position - transform.position).magnitude);
+		print(hits[i].collider.name);
+		print(pushVector);
+	    }
+	}
     }
 
     public void teleport()

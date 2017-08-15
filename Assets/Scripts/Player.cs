@@ -64,14 +64,14 @@ public class Player : MonoBehaviour
 		{
 		    powers.forcePush();
 		    forceState = forceStates.delayed;
-		    Debug.Log("Delayed");
+		    //Debug.Log("Delayed");
 		    forceCombination = "";
 		}
 		else if (forceCombination == teleportCombination)
 		{
 		    powers.teleport();
 		    forceState = forceStates.idle;
-		    Debug.Log("Idle");
+		    //Debug.Log("Idle");
 		    forceCombination = "";
 		}
 	    }
@@ -83,25 +83,25 @@ public class Player : MonoBehaviour
 	    focusCounter = 0;
 	    forceState = forceStates.ongoing;
 	    forceCombination += "q";
-	    Debug.Log("Ongoing: " + forceCombination);
+	    //Debug.Log("Ongoing: " + forceCombination);
 	}
 	else if (Input.GetKeyDown(KeyCode.W))
 	{
 	    focusCounter = 0;
 	    forceState = forceStates.ongoing;
 	    forceCombination += "w";
-	    Debug.Log("Ongoing: " + forceCombination);
+	    //Debug.Log("Ongoing: " + forceCombination);
 	}
 	else if (Input.GetKeyDown(KeyCode.E))
 	{
 	    focusCounter = 0;
 	    forceState = forceStates.ongoing;
 	    forceCombination += "e";
-	    Debug.Log("Ongoing: " + forceCombination);
+	    //Debug.Log("Ongoing: " + forceCombination);
 	    if (forceCombination == pushCombination)
 	    {
 		forceState = forceStates.ready;
-		Debug.Log("Push Ready");
+		//Debug.Log("Push Ready");
 	    }
 	}
 	else if (Input.GetKeyDown(KeyCode.A))
@@ -109,18 +109,18 @@ public class Player : MonoBehaviour
 	    focusCounter = 0;
 	    forceState = forceStates.ongoing;
 	    forceCombination += "a";
-	    Debug.Log("Ongoing: " + forceCombination);
+	    //Debug.Log("Ongoing: " + forceCombination);
 	}
 	else if (Input.GetKeyDown(KeyCode.S))
 	{
 	    focusCounter = 0;
 	    forceState = forceStates.ongoing;
 	    forceCombination += "s";
-	    Debug.Log("Ongoing: " + forceCombination);
+	    //Debug.Log("Ongoing: " + forceCombination);
 	    if (forceCombination == teleportCombination)
 	    {
 		forceState = forceStates.ready;
-		Debug.Log("Teleport Ready");
+		//Debug.Log("Teleport Ready");
 	    }
 	}
     }
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
 		forceState = forceStates.failed;
 		focusCounter = 0;
 		forceCombination = "";
-		Debug.Log("Failed");
+		//Debug.Log("Failed");
 	    }
 	}
 	if (forceState == forceStates.failed)
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
 	    {
 		focusCounter = 0;
 		forceState = forceStates.idle;
-		Debug.Log("Idle");
+		//Debug.Log("Idle");
 	    }
 	}
 	if (forceState == forceStates.delayed)
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
 	    {
 		focusCounter = 0;
 		forceState = forceStates.idle;
-		Debug.Log("Idle");
+		//Debug.Log("Idle");
 	    }
 	}
     }
