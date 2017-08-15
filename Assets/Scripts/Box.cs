@@ -5,19 +5,30 @@ using UnityEngine.UI;
 
 public class Box : MonoBehaviour
 {
-    public Transform canvas;
+    Rigidbody2D rBody;
+    
+    public Transform canvas = null;
     public string hint;
     bool pushed = false;
+
+    void Awake()
+    {
+	rBody = GetComponent<Rigidbody2D>();
+    }
     
     void Update()
     {
-	if (pushed)
-	    Destroy(gameObject);
+	if (rBody.velocity.magnitude > 15.0f)
+	{
+	    if (canvas)
+		canvas.GetChild(0).GetComponent<Text>().text = "";
+	    Destroy(gameObject, 1);	
+	}
     }
     
     void OnMouseOver()
     {
-        if (hint != "")
+        if (hint != "" && canvas)
 	{
 	    canvas.position = new Vector2(transform.position.x, transform.position.y + 7);
 	    canvas.GetChild(0).GetComponent<Text>().text = hint;
@@ -26,6 +37,7 @@ public class Box : MonoBehaviour
 
     void OnMouseExit()
     {
-	canvas.GetChild(0).GetComponent<Text>().text = "";
+	if (canvas)
+	    canvas.GetChild(0).GetComponent<Text>().text = "";
     }
 }

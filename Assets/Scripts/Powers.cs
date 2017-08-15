@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Powers : MonoBehaviour
 {
+    Rigidbody2D rBody;
+    Moves moves;
     Vector2 focusPoint;
     Animator animator;
     int animationCounter = 0;
@@ -12,6 +14,8 @@ public class Powers : MonoBehaviour
     void Awake()
     {
 	animator = GetComponent<Animator>();
+	rBody = GetComponent<Rigidbody2D>();
+        moves = GetComponent<Moves>();
     }
 
     void FixedUpdate()
@@ -60,6 +64,8 @@ public class Powers : MonoBehaviour
 
     public void teleport()
     {
+	moves.fallingTooFast = false;
+	rBody.velocity *= 0.1f;
 	transform.position = focusPoint;
 	Debug.Log("Teleport");
 	animator.SetBool("teleporting", true);
