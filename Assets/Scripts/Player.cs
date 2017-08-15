@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
         if (forceState == forceStates.ongoing)
 	{
 	    focusCounter++;
-	    if (focusCounter >= 10)
+	    if (focusCounter >= 15)
 	    {
 		forceState = forceStates.failed;
 		focusCounter = 0;
