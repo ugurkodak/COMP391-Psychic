@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     
     Vector3 mousePosition;
     public Transform focusLight;
+    const float leftEnd = -25.8f;
+    const float bottomEnd = 0.5258417f;
 
     int focusCounter = 0;
     enum forceStates {idle, ongoing, ready, delayed, failed};
@@ -28,6 +30,12 @@ public class Player : MonoBehaviour
 	
     void Update()
     {
+	//Boundaries
+	if (transform.position.x <= leftEnd)
+	    transform.position = new Vector2(leftEnd, transform.position.y);
+	if (transform.position.y <= bottomEnd)
+	    transform.position = new Vector2(transform.position.x, bottomEnd);
+	
 	//Mouse position (Player focus)
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	mousePosition.z = -1; //Remove camera z
