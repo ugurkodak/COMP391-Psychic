@@ -9,7 +9,7 @@ public class CameraAndBackground : MonoBehaviour
     
     void Update()
     {
-	if (transform.position.x >= 0)
+	if (transform.position.x >= 0 && transform.position.x <= 160)
 	{
 	    if (transform.position.x - theCamera.position.x > 0)
 	    {

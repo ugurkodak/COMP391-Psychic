@@ -9,7 +9,6 @@ public class Box : MonoBehaviour
     
     public Transform canvas = null;
     public string hint;
-    bool pushed = false;
 
     void Awake()
     {

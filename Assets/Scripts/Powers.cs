@@ -7,7 +7,7 @@ public class Powers : MonoBehaviour
 {
     Rigidbody2D rBody;
     Moves moves;
-    Vector2 focusPoint;
+    public Vector2 focusPoint;
     Animator animator;
     int animationCounter = 0;
         
@@ -39,7 +39,7 @@ public class Powers : MonoBehaviour
 
     public void forcePush()
     {
-	Debug.Log("Force Push");
+//	Debug.Log("Force Push");
 	animator.SetBool("pushing", true);
 	animationCounter++;
 	
@@ -50,14 +50,14 @@ public class Powers : MonoBehaviour
 	Debug.DrawLine(transform.position, focusPoint, Color.green, 2, false);
 	for (int i = 0; i < hits.Length; i++)
 	{
-	    if (hits[i].transform.CompareTag("Box") || hits[i].transform.CompareTag("Enemy"))
+	    if (hits[i].transform.CompareTag("Box") ||
+		gameObject.tag == "Player" && hits[i].transform.CompareTag("Enemy") ||
+		gameObject.tag == "Enemy" && hits[i].transform.CompareTag("Player"))
 	    {
 		Vector2 pushVector = new Vector2(0, 0);
 		pushVector = (focusPoint - (Vector2)transform.position).normalized;
 		hits[i].collider.GetComponent<Rigidbody2D>().AddForce(pushVector *
 								      10000 / (hits[i].transform.position - transform.position).magnitude);
-		print(hits[i].collider.name);
-		print(pushVector);
 	    }
 	}
     }
@@ -67,8 +67,9 @@ public class Powers : MonoBehaviour
 	moves.fallingTooFast = false;
 	rBody.velocity *= 0.1f;
 	transform.position = focusPoint;
-	Debug.Log("Teleport");
+	//Debug.Log("Teleport");
 	animator.SetBool("teleporting", true);
 	animationCounter++;
+	//rBody.AddForce(new Vector2(0, 1000.0f));
     }
 }

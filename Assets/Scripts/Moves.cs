@@ -9,6 +9,7 @@ public class Moves : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rBody;
+    BoxCollider2D bCollider;
     
     public float speed = 0.1f;
     bool movingRight;
@@ -22,6 +23,7 @@ public class Moves : MonoBehaviour
 	animator = GetComponent<Animator>();
 	spriteRenderer = GetComponent<SpriteRenderer>();
         rBody = GetComponent<Rigidbody2D>();
+	bCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -29,9 +31,12 @@ public class Moves : MonoBehaviour
 	if (rBody.velocity.y < -26.0f)
 	    fallingTooFast = true;
 	if (Mathf.Abs(rBody.velocity.x) > 15)
-	{
 	    dead = true;
+	if (dead)
+	{
 	    animator.SetBool("dead", true);
+	    Destroy(bCollider);
+	    Destroy(gameObject, 3);
 	}
     }
     
@@ -46,10 +51,7 @@ public class Moves : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
 	if (fallingTooFast && other.transform.CompareTag("Platform"))
-	{
-	    animator.SetBool("dead", true);
-	    print("dead");
-	}
+	    dead = true;
     }
     
     public void moveRight()

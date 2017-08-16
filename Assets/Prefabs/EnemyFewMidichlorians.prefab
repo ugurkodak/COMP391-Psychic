@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 61247929821588640}
   - component: {fileID: 114290301783967794}
   - component: {fileID: 114991490964308546}
+  - component: {fileID: 114888844767785396}
   m_Layer: 0
   m_Name: EnemyFewMidichlorians
   m_TagString: Enemy
@@ -201,6 +202,19 @@ MonoBehaviour:
   speed: 0.1
   fallingTooFast: 0
   dead: 0
+--- !u!114 &114888844767785396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657818059233218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09690287d30d44668add8eccb45365c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPlayer: 1
+  pushPlayer: 0
 --- !u!114 &114991490964308546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848015547af214dccbd13e6ec50fbe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusPoint: {x: 0, y: 0}
 --- !u!212 &212426539146889986
 SpriteRenderer:
   m_ObjectHideFlags: 1

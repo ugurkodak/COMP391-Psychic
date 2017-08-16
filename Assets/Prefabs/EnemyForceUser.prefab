@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 61020932696227624}
   - component: {fileID: 114406978951711876}
   - component: {fileID: 114561175041066684}
+  - component: {fileID: 114058163564455044}
   m_Layer: 0
   m_Name: EnemyForceUser
   m_TagString: Enemy
@@ -187,6 +188,19 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114058163564455044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920305116057500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09690287d30d44668add8eccb45365c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveToPlayer: 0
+  pushPlayer: 1
 --- !u!114 &114406978951711876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848015547af214dccbd13e6ec50fbe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusPoint: {x: 0, y: 0}
 --- !u!212 &212031610879718990
 SpriteRenderer:
   m_ObjectHideFlags: 1

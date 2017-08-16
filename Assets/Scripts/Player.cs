@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Moves))]
 [RequireComponent(typeof(Powers))]
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     public Transform focusLight;
     const float leftEnd = -25.8f;
     const float bottomEnd = 0.5258417f;
+    const float rightEnd = 185.6f;
 
     int focusCounter = 0;
     enum forceStates {idle, ongoing, ready, delayed, failed};
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
     string forceCombination = "";
     const string pushCombination = "qwe";
     const string teleportCombination = "qwas";
+
+    bool restarting = false;
 
     void Awake()
     {
@@ -33,12 +37,20 @@ public class Player : MonoBehaviour
 	
     void Update()
     {
+	if (!restarting && moves.dead)
+	{
+	    restarting = true;
+	    StartCoroutine(restart());
+	}
+
 	//Boundaries
 	if (transform.position.x <= leftEnd)
 	    transform.position = new Vector2(leftEnd, transform.position.y);
 	if (transform.position.y <= bottomEnd)
 	    transform.position = new Vector2(transform.position.x, bottomEnd);
-	
+	if (transform.position.x >= rightEnd)
+	    transform.position = new Vector2(rightEnd, transform.position.y);
+
 	//Mouse position (Player focus)
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	mousePosition.z = -1; //Remove camera z
@@ -169,7 +181,7 @@ public class Player : MonoBehaviour
 	if (forceState == forceStates.delayed)
 	{
 	    focusCounter++;
-	    if (focusCounter >= 30)
+	    if (focusCounter >= 50)
 	    {
 		focusCounter = 0;
 		forceState = forceStates.idle;
@@ -177,5 +189,17 @@ public class Player : MonoBehaviour
 		indicator.color = new Color(0, 0, 0, 0);
 	    }
 	}
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+	if (collision.transform.CompareTag("Enemy"))
+	    moves.dead = true;
+    }
+    
+    IEnumerator restart()
+    {
+	yield return new WaitForSeconds(2.0f);
+	SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }
