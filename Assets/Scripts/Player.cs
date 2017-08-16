@@ -200,6 +200,6 @@ public class Player : MonoBehaviour
     IEnumerator restart()
     {
 	yield return new WaitForSeconds(2.0f);
-	SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
